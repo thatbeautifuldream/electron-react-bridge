@@ -1,5 +1,9 @@
 # electron-react-bridge
 
+<img width="1212" height="832" alt="Screenshot 2026-05-17 at 12 05 06 AM" src="https://github.com/user-attachments/assets/310bbc39-3dc4-4625-824a-eaae0128dc3d" />
+
+<img width="1212" height="832" alt="Screenshot 2026-05-17 at 12 05 01 AM" src="https://github.com/user-attachments/assets/7a391912-6817-44b0-9f79-47d32f247083" />
+
 Minimal monorepo template: an Electron desktop app shell + a Vite/React renderer that also runs as a plain web app. Renderer and main process talk through a strongly typed `window.desktopBridge` defined once in `packages/contracts`.
 
 ## Layout
