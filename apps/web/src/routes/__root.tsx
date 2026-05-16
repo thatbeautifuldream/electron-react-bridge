@@ -1,11 +1,10 @@
 import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
 import { getDesktopBridge } from "../desktopBridge";
+import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createRootRoute({
   component: RootLayout,
 });
-
-const TITLEBAR_HEIGHT = 40;
 
 function RootLayout() {
   const bridge = getDesktopBridge();
@@ -14,27 +13,33 @@ function RootLayout() {
   const isWindowsOrLinux = platform === "win32" || platform === "linux";
 
   return (
-    <div className="min-h-full flex flex-col">
+    <div className="isolate flex min-h-dvh flex-col bg-background text-foreground antialiased">
       <header
-        className="flex items-center border-b border-neutral-800 select-none bg-neutral-950/80 backdrop-blur"
+        className="sticky top-0 z-10 flex h-10 shrink-0 items-center gap-6 border-b border-border/60 bg-background/80 backdrop-blur select-none"
         style={{
-          height: TITLEBAR_HEIGHT,
-          // Make the whole titlebar a macOS drag region; opt buttons out below.
           WebkitAppRegion: "drag",
-          // Reserve space for traffic lights on macOS / window controls on Win+Linux.
           paddingLeft: isMac ? 80 : 12,
           paddingRight: isWindowsOrLinux ? 140 : 12,
         }}
       >
-        <div className="text-xs font-medium text-neutral-300 mr-6">Electron React Bridge</div>
-        <nav className="flex gap-1 text-sm" style={{ WebkitAppRegion: "no-drag" }}>
+        <div className="flex items-center gap-2">
+          <span aria-hidden className="size-1.5 rounded-full bg-foreground/60" />
+          <span className="text-xs font-medium text-foreground/80">
+            Electron React Bridge
+          </span>
+        </div>
+        <nav
+          className="flex items-center gap-0.5 text-sm"
+          style={{ WebkitAppRegion: "no-drag" }}
+        >
           <NavLink to="/">Home</NavLink>
           <NavLink to="/about">About</NavLink>
         </nav>
       </header>
-      <main className="flex-1 p-6">
+      <main className="flex-1">
         <Outlet />
       </main>
+      <Toaster richColors position="bottom-right" />
     </div>
   );
 }
@@ -43,7 +48,7 @@ function NavLink({ to, children }: { to: "/" | "/about"; children: React.ReactNo
   return (
     <Link
       to={to}
-      className="px-2.5 py-1 rounded text-neutral-400 hover:text-white hover:bg-neutral-900 [&.active]:text-white [&.active]:bg-neutral-900"
+      className="rounded-md px-2.5 py-1 text-[0.8rem] text-muted-foreground transition-colors hover:bg-accent hover:text-foreground [&.active]:bg-accent [&.active]:text-foreground"
     >
       {children}
     </Link>
